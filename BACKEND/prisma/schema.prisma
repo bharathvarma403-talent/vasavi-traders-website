@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model Brand {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[]
+}
+
+model Product {
+  id          Int             @id @default(autoincrement())
+  name        String
+  category    String
+  description String?
+  priceMin    Float?
+  priceMax    Float?
+  brandId     Int
+  brand       Brand           @relation(fields: [brandId], references: [id])
+  ratings     ProductRating[]
+  stockStatus String          @default("In Stock")
+}
+
+model ProductRating {
+  id        Int      @id @default(autoincrement())
+  rating    Int
+  userId    Int?
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model Reservation {
+  id         Int      @id @default(autoincrement())
+  name       String
+  phone      String
+  productId  Int
+  quantity   Int
+  pickupDate DateTime
+  status     String   @default("Pending")
+  createdAt  DateTime @default(now())
+}
+
+model AiQuery {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  query     String
+  response  String
+  createdAt DateTime @default(now())
+}
