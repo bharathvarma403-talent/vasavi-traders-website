@@ -14,7 +14,7 @@ export default function Modal({ isOpen, onClose, product }) {
     e.preventDefault();
     setStatus('submitting');
     try {
-      await axios.post('http://localhost:5000/api/reservations', { ...formData, productId: product.id });
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/reservations`, { ...formData, productId: product.id });
       setStatus('success');
     } catch {
       setTimeout(() => setStatus('success'), 800);

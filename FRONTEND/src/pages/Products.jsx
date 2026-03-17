@@ -16,7 +16,7 @@ export default function Products() {
   const [compareList, setCompareList] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/products')
+    axios.get(`${import.meta.env.VITE_API_URL}/api/products`)
       .then(res => { setProducts(res.data); setLoading(false); })
       .catch(() => {
         setProducts([

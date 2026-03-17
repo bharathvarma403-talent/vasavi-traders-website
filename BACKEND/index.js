@@ -6,7 +6,13 @@ const app = express();
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://vasavi-traders-website-3gpu.vercel.app',
+    'http://localhost:5173',
+  ],
+  credentials: true,
+}));
 app.use(express.json());
 
 // Basic health check route
