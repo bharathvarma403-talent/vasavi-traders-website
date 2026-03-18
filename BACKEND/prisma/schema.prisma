@@ -62,3 +62,4 @@ model AiQuery {
   response  String
   createdAt DateTime @default(now())
 }
+//update
