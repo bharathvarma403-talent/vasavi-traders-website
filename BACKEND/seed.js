@@ -54,6 +54,12 @@ async function main() {
   });
 
   // Create Products
+  const productCount = await prisma.product.count();
+  if (productCount > 0) {
+    console.log('Products already seeded. Skipping product creation.');
+    return;
+  }
+
   const products = [
     {
       name: 'OPC 53 Grade',
